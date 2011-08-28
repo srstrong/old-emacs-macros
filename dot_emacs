@@ -1,0 +1,148 @@
+(defun set-frame-size-according-to-resolution ()
+  (interactive)
+  (if window-system
+  (progn
+    ;; use 120 char wide window for largeish displays
+    ;; and smaller 80 column windows for smaller displays
+    ;; pick whatever numbers make sense for you
+    (if (> (x-display-pixel-width) 1280)
+        (add-to-list 'default-frame-alist (cons 'width 150))
+      (add-to-list 'default-frame-alist (cons 'width 80)))
+
+    (if (> (x-display-pixel-width) 1280)
+        (add-to-list 'default-frame-alist (cons 'left 200))
+      (add-to-list 'default-frame-alist (cons 'left 100)))
+
+    (add-to-list 'default-frame-alist (cons 'top 100))
+    ;; for the height, subtract a couple hundred pixels
+    ;; from the screen height (for panels, menubars and
+    ;; whatnot), then divide by the height of a char to
+    ;; get the height we want
+    (add-to-list 'default-frame-alist 
+                 (cons 'height (/ (- (x-display-pixel-height) 200) (frame-char-height)))))))
+
+(defadvice zap-to-char (after my-zap-to-char-advice (arg char) activate)
+    "Kill up to the ARG'th occurence of CHAR, and leave CHAR.
+  The CHAR is replaced and the point is put before CHAR."
+    (insert char)
+    (forward-char -1))
+
+(set-frame-size-according-to-resolution)
+
+(custom-set-variables
+  ;; custom-set-variables was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ '(ecb-options-version "2.40")
+ '(initial-buffer-choice t)
+ '(ns-command-modifier (quote meta))
+ '(ns-control-modifier (quote control))
+ '(safe-local-variable-values (quote ((erlang-indent-level . 4)))))
+(custom-set-faces
+  ;; custom-set-faces was added by Custom.
+  ;; If you edit it by hand, you could mess it up, so be careful.
+  ;; Your init file should contain only one such instance.
+  ;; If there is more than one, they won't work right.
+ )
+
+;; Erlang
+(setq load-path (cons  "~/src/emacs/erlang"
+      load-path))
+      (setq erlang-root-dir "/usr/local/Cellar/erlang/R14B03/lib/erlang")
+      (setq exec-path (cons "/usr/local/Cellar/erlang/R14B03/lib/erlang/bin" exec-path))
+      (require 'erlang-start)
+
+;; CEDET
+;;(load-file "~/src/cedet-1.0/common/cedet.el")
+;;(global-ede-mode 1)                      ; Enable the Project management system
+;;(semantic-load-enable-code-helpers)      ; Enable prototype help and smart completion 
+;;(global-srecode-minor-mode 1)            ; Enable template insertion menu
+
+;; ECB
+;; (add-to-list 'load-path "~/src/ecb-2.40")
+;; (require 'ecb)
+
+;; IDO
+;;(require 'ido)
+;;(ido-mode t)
+;;(setq ido-enable-flex-matching t) ;; enable fuzzy matching
+
+; Install mode-compile to give friendlier compiling support!
+(add-to-list 'load-path "~/elisp")
+(autoload 'mode-compile "mode-compile" "Command to compile current buffer file based on the major mode" t)
+(global-set-key (kbd "C-c c") 'mode-compile)
+(autoload 'mode-compile-kill "mode-compile" "Command to kill a compilation launched by `mode-compile'" t)
+(global-set-key (kbd "C-c k") 'mode-compile-kill)
+
+;; This is needed for Distel setup
+;; (let ((distel-dir "/Users/steve/src/distel-read-only/elisp"))
+;;   (unless (member distel-dir load-path)
+;;     ;; Add distel-dir to the end of load-path
+;;     (setq load-path (append load-path (list distel-dir)))))
+;; 
+;; (require 'distel)
+;; (distel-setup)
+
+;; Some Erlang customizations
+(add-hook 'erlang-mode-hook
+	  (lambda ()
+	    ;; when starting an Erlang shell in Emacs, default in the node name
+	    (setq inferior-erlang-machine-options '("-sname" "emacs"))
+	    ;; add Erlang functions to an imenu menu
+	    (imenu-add-to-menubar "imenu")))
+
+;; A number of the erlang-extended-mode key bindings are useful in the shell too
+(defconst distel-shell-keys
+  '(
+    ("\C-\M-i"   erl-complete)
+    ("\M-?"      erl-complete)	
+    ("\M-."      erl-find-source-under-point)
+    ("\M-,"      erl-find-source-unwind) 
+    ("\M-*"      erl-find-source-unwind) 
+    )
+  "Additional keys to bind when in Erlang shell.")
+
+(add-hook 'erlang-shell-mode-hook
+	  (lambda ()
+	    ;; add some Distel bindings to the Erlang shell
+	    (dolist (spec distel-shell-keys)
+	      (define-key erlang-shell-mode-map (car spec) (cadr spec)))))
+
+
+;; Electric Ruby
+(add-hook 'ruby-mode-hook
+          (lambda()
+            (add-hook 'local-write-file-hooks
+                      '(lambda()
+                         (save-excursion
+                           (untabify (point-min) (point-max))
+                           (delete-trailing-whitespace)
+                           )))
+            (set (make-local-variable 'indent-tabs-mode) 'nil)
+            (set (make-local-variable 'tab-width) 2)
+            (imenu-add-to-menubar "IMENU")
+            (define-key ruby-mode-map "C-m" 'newline-and-indent) ;Not sure if this line is 100% right but it works!
+            (require 'ruby-electric)
+            (ruby-electric-mode t)
+            ))
+
+;; Key modifiers for Mac OS X Emacs.app in spanish MBP keyboard
+(global-set-key (kbd "M-1") "|")
+(global-set-key (kbd "M-2") "@")
+(global-set-key (kbd "M-3") "#")
+(global-set-key (kbd "M-º") "\\")
+(global-set-key (kbd "M-ç") "}")
+(global-set-key (kbd "M-+") "]")
+(global-set-key (kbd "M-ñ") "~")
+
+;; Anything
+;;	(add-to-list 'load-path "~/src/anything-config")
+;;(require 'anything-config)
+
+;;(require 'revbufs)
+
+(setq make-backup-files nil)
+
+;; Flash
+(add-to-list 'auto-mode-alist '("\\.as\\'" . js-mode))
