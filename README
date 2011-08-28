@@ -1,0 +1,4 @@
+Install to ~/src/emacs
+Link dot_emacs to ~/.emacs
+Run emacs
+Done.
