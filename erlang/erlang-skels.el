@@ -480,7 +480,8 @@ Please see the function `tempo-define-template'.")
     (erlang-skel-separator-start 2)
     "%% Handling call messages" n
     (erlang-skel-separator-end 2)
-    "-spec handle_call(Request::term(), From::{pid(), Tag::term()}, State::state()) -> {reply, Reply::term(), State::state()} |"n>
+    "-spec handle_call(Request::term(), From::{pid(), Tag::term()}, State::state()) -> " n >
+    "{reply, Reply::term(), State::state()} |"n>
     "{reply, Reply::term(), State::state(), Timeout::non_neg_integer()} |"n>
     "{noreply, State::state()} |"n>
     "{stop, Reason::term(), Reply::term(), State::state()} |"n>
