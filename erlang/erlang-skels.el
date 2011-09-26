@@ -328,10 +328,6 @@ Please see the function `tempo-define-template'.")
     (erlang-skel-separator-start 2)
     "%% Starts the supervisor" n
     (erlang-skel-separator-end 2)
-    "-spec start_link() -> {ok, Pid::pid()} |" n>
-    "ignore |" n>
-    "{error, Error::term()}." n
-    "start_link() ->" n>
     "supervisor:start_link({local, ?SERVER}, ?MODULE, [])." n
     n
     (erlang-skel-double-separator-start 3)
@@ -340,9 +336,6 @@ Please see the function `tempo-define-template'.")
     (erlang-skel-separator-start 2)
     "%% Init" n
     (erlang-skel-separator-end 2)
-    "-spec init(Args::list()) -> {ok, {SupFlags::supervisor:strategy(), ChildSpecs::list(supervisor:child_spec())}} |" n>
-    "ignore |" n>
-    "{error, Reason::term()}."n
     "init([]) ->" n>
     "RestartStrategy = one_for_one," n>
     "MaxRestarts = 1000," n>
@@ -457,9 +450,6 @@ Please see the function `tempo-define-template'.")
     (erlang-skel-separator-start 2)
     "%% Starts the server" n
     (erlang-skel-separator-end 2)
-    "-spec start_link() -> {ok, Pid::pid()} |"n>
-    "ignore | "n>
-    "{error, Error::term()}."n
     "start_link() ->" n>
     "gen_server:start_link({local, ?SERVER}, ?MODULE, [], [])." n
     n
@@ -470,53 +460,36 @@ Please see the function `tempo-define-template'.")
     (erlang-skel-separator-start 2)
     "%% Initializes the server" n
     (erlang-skel-separator-end 2)
-    "-spec init(Args::list()) -> {ok, State::state()} |"n>
-    "{ok, State::state(), Timeout::non_neg_integer()} |"n>
-    "ignore |"n>
-    "{stop, Reason::term()}."n
     "init([]) ->" n>
     "{ok, #state{}}." n
     n
     (erlang-skel-separator-start 2)
     "%% Handling call messages" n
     (erlang-skel-separator-end 2)
-    "-spec handle_call(Request::term(), From::{pid(), Tag::term()}, State::state()) -> {reply, Reply::term(), State::state()} |"n>
-    "{reply, Reply::term(), State::state(), Timeout::non_neg_integer()} |"n>
-    "{noreply, State::state()} |"n>
-    "{stop, Reason::term(), Reply::term(), State::state()} |"n>
-    "{stop, Reason::term(), State::state()}."n
     "handle_call(not_implemented, _From, State) ->" n>
     "{reply, ok, State}." n
     n
     (erlang-skel-separator-start 2)
     "%% Handling cast messages" n
     (erlang-skel-separator-end 2)
-    "-spec handle_cast(Msg::term(), State::state()) -> {noreply, State::state()} |"n>
-    "{noreply, State::state(), Timeout::non_neg_integer()} |"n>
-    "{stop, Reason::term(), State::state()}."n
     "handle_cast(not_implemented, State) ->" n>
     "{noreply, State}." n
     n
     (erlang-skel-separator-start 2)
     "%% Handling all non call/cast messages" n
     (erlang-skel-separator-end 2)
-    "-spec handle_info(Info::term(), State::state()) -> {noreply, State::state()} |"n>
-    "{noreply, State::state(), Timeout::non_neg_integer()} |"n>
-    "{stop, Reason::term(), State::state()}."n
     "handle_info(not_implemented, State) ->" n>
     "{noreply, State}." n
     n
     (erlang-skel-separator-start 2)
     "%% terminate "n
     (erlang-skel-separator-end 2)
-    "-spec terminate(Reason::term(), State::state()) -> none()."n
     "terminate(_Reason, _State) ->" n>
     "ok." n
     n
     (erlang-skel-separator-start 2)
     "%% Convert process state when code is changed" n
     (erlang-skel-separator-end 2)
-    "-spec code_change(OldVsn ::term() | {down, term()}, State::state(), Extra::term()) -> {ok, NewState::term()}." n
     "code_change(_OldVsn, State, _Extra) ->" n>
     "{ok, State}." n
     n
@@ -559,17 +532,12 @@ Please see the function `tempo-define-template'.")
     (erlang-skel-separator-start 2)
     "%% Creates an event manager" n
     (erlang-skel-separator-end 2)
-    "-spec start_link() -> {ok, Pid::pid()} |" n>
-    "{error, Error::term()}." n
     "start_link() ->" n>
     "gen_event:start_link({local, ?SERVER})." n
     n
     (erlang-skel-separator-start 2)
     "%% Adds an event handler" n
     (erlang-skel-separator-end 2)
-    "-spec add_handler() -> ok |" n>
-    "{'EXIT', Reason::term()} |" n> 
-    "term()." n
     "add_handler() ->" n>
     "gen_event:add_handler(?SERVER, ?MODULE, [])." n
     n
@@ -579,25 +547,18 @@ Please see the function `tempo-define-template'.")
     (erlang-skel-separator-start 2)
     "%% init" n
     (erlang-skel-separator-end 2)
-    "-spec init(Args::list()) -> {ok, State::state()}." n
     "init([]) ->" n>
     "{ok, #state{}}." n
     n
     (erlang-skel-separator-start 2)
     "%% handle_event" n
     (erlang-skel-separator-end 2)
-    "-spec handle_event(Event::term(), State::state()) -> {ok, State::state()} |" n>
-    "{swap_handler, Args1::term(), State1::state(), Mod2::atom() | {atom(), term()}, Args2::term()} |"n>
-    "remove_handler." n
     "handle_event(not_implemented, State) ->" n>
     "{ok, State}." n
     n
     (erlang-skel-separator-start 2)
     "%% handle_call" n
     (erlang-skel-separator-end 2)
-    "-spec handle_call(Request::term(), State::state()) -> {ok, Reply::term(), State::state()} |" n>
-    "{swap_handler, Reply::term(), Args1::term(), State1::state(), Mod2::atom() | {atom(), term()}, Args2::term()} |" n>
-    "{remove_handler, Reply::term()}." n
     "handle_call(not_implemented, State) ->" n>
     "Reply = ok," n>
     "{ok, Reply, State}." n
@@ -605,23 +566,18 @@ Please see the function `tempo-define-template'.")
     (erlang-skel-separator-start 2)
     "%% handle_info" n
     (erlang-skel-separator-end 2)
-    "-spec handle_info(Info::term(), State::state()) -> {ok, State::state()} |" n>
-    "{swap_handler, Args1::term(), State1::state(), Mod2::atom() | {atom(), term()}, Args2::term()} |" n>
-    "remove_handler." n
     "handle_info(not_implemented, State) ->" n>
     "{ok, State}." n
     n
     (erlang-skel-separator-start 2)
     "%% terminate" n
     (erlang-skel-separator-end 2)
-    "-spec terminate(Reason::term(), State::state()) -> none()." n
     "terminate(_Reason, _State) ->" n>
     "ok." n
     n
     (erlang-skel-separator-start 2)
     "%% Convert process state when code is changed" n
     (erlang-skel-separator-end 2)
-    "-spec code_change(OldVsn::term() | {down, term()}, State::state(), Extra::term()) -> {ok, NewState::term()}." n
     "code_change(_OldVsn, State, _Extra) ->" n>
     "{ok, State}." n
     n
@@ -653,9 +609,6 @@ Please see the function `tempo-define-template'.")
     (erlang-skel-separator-start 2)
     "%% init" n
     (erlang-skel-separator-end 2)
-    "-spec start_link() -> {ok, Pid::pid()} |" n>
-    "ignore | " n>
-    "{error, Error::term()}." n
     "start_link() ->" n>
     "gen_fsm:start_link({local, ?SERVER}, ?MODULE, [], [])." n
     n
@@ -665,81 +618,48 @@ Please see the function `tempo-define-template'.")
     (erlang-skel-separator-start 2)
     "%% init" n
     (erlang-skel-separator-end 2)
-    "-spec init(Args::list()) -> {ok, StateName::atom(), State::state()} |" n>
-    "{ok, StateName::atom(), State::state(), Timeout::non_neg_integer()} |" n>
-    "ignore |" n>
-    "{stop, StopReason::term()}." n
     "init([]) ->" n>
     "{ok, state_name, #state{}}." n
     n
     (erlang-skel-separator-start 2)
     "%% send_event handlers " n
     (erlang-skel-separator-end 2)
-    "-spec state_name(Event::term(), State::state()) -> " n>
-    "{next_state, NextStateName::atom(), NextState::state()} |" n>
-    "{next_state, NextStateName::atom(), NextState::state(), Timeout::non_neg_integer()} |" n>
-    "{stop, Reason::term(), NewState::state()}." n
     "state_name(_Event, State) ->" n>
     "{next_state, state_name, State}." n
     n
     (erlang-skel-separator-start 2)
     "%% sync_send_event_handlers" n
     (erlang-skel-separator-end 2) 
-    "-spec state_name(Event::term(), From::{pid(), Tag::term()}, State::state()) -> " n>
-    "{next_state, NextStateName::atom(), NextState::state()} |" n>
-    "{next_state, NextStateName::atom(), NextState::state(), Timeout::non_neg_integer()} |" n>
-    "{reply, Reply::term(), NextStateName::atom(), NextState::state()} |" n>
-    "{reply, Reply::term(), NextStateName::atom(), NextState::state(), Timeout::non_neg_integer()} |" n>
-    "{stop, Reason::term(), NewState::state()} |" n>
-    "{stop, Reason::term(), Reply::term(), NewState::state()}." n
     "state_name(_Event, _From, State) ->" n>
     "{reply, ok, state_name, State}." n
     n
     (erlang-skel-separator-start 2)
     "%% send_all_state_event handlers" n
     (erlang-skel-separator-end 2) 
-    "-spec handle_event(Event::term(), StateName::atom(), State::state()) ->" n>
-    "{next_state, NextStateName::atom(), NextState::state()} |" n>
-    "{next_state, NextStateName::atom(), NextState::state(), Timeout::non_neg_integer()} |" n>
-    "{stop, Reason::term(), NewState::state()}." n
     "handle_event(not_implemented, StateName, State) ->" n>
     "{next_state, StateName, State}." n
     n
     (erlang-skel-separator-start 2)
     "%% sync_send_all_state_event handlers" n
     (erlang-skel-separator-end 2)
-    "-spec handle_sync_event(Event::term(), From::{pid(), Tag::term()}, StateName::atom(), State::state()) -> " n>
-    "{next_state, NextStateName::atom(), NextState::state()} |" n>
-    "{next_state, NextStateName::atom(), NextState::state(), Timeout::non_neg_integer()} |" n>
-    "{reply, Reply, NextStateName::atom(), NextState::state()} |" n>
-    "{reply, Reply, NextStateName::atom(), NextState::state(), Timeout::non_neg_integer()} |" n>
-    "{stop, Reason::term(), NewState::state()} |" n>
-    "{stop, Reason::term(), Reply::term(), NewState::state()}." n
     "handle_sync_event(not_implemented, _From, StateName, State) ->" n>
     "{reply, ok, StateName, State}." n
     n
     (erlang-skel-separator-start 2)
     "%% handle_info" n
     (erlang-skel-separator-end 2)
-    "-spec handle_info(Info::term(), StateName::atom(), State::state()) -> " n>
-    "{next_state, NextStateName::atom(), NextState::state()} |" n>
-    "{next_state, NextStateName::atom(), NextState::state(), Timeout::non_neg_integer()} |" n>
-    "{stop, Reason::term(), NewState::state()}." n
     "handle_info(not_implemented, StateName, State) ->" n>
     "{next_state, StateName, State}." n
     n
     (erlang-skel-separator-start 2)
     "%% terminate" n
     (erlang-skel-separator-end 2)
-    "-spec terminate(Reason::term(), StateName::term(), State::state()) -> none()." n
     "terminate(_Reason, _StateName, _State) ->" n>
     "ok." n
     n
     (erlang-skel-separator-start 2)
     "%% Convert process state when code is changed" n
     (erlang-skel-separator-end 2)
-    "-spec code_change(OldVsn::term() | {down, term()}, StateName::atom(), State::state(), Extra::term()) -> " n>
-    "{ok, StateName::atom(), NewState::state()}." n
     "code_change(_OldVsn, StateName, State, _Extra) ->" n>
     "{ok, StateName, State}." n
     n

@@ -49,24 +49,14 @@
 ;; Erlang
 (setq load-path (cons  "~/src/emacs/erlang"
       load-path))
-      (setq erlang-root-dir "/usr/local/Cellar/erlang/R14B03/lib/erlang")
-      (setq exec-path (cons "/usr/local/Cellar/erlang/R14B03/lib/erlang/bin" exec-path))
-      (require 'erlang-start)
+(setq erlang-root-dir "/usr/local/Cellar/erlang/R14B03/lib/erlang")
+(setq exec-path (cons "/usr/local/Cellar/erlang/R14B03/lib/erlang/bin" exec-path))
+(require 'erlang-start)
 
-;; CEDET
-;;(load-file "~/src/cedet-1.0/common/cedet.el")
-;;(global-ede-mode 1)                      ; Enable the Project management system
-;;(semantic-load-enable-code-helpers)      ; Enable prototype help and smart completion 
-;;(global-srecode-minor-mode 1)            ; Enable template insertion menu
 
-;; ECB
-;; (add-to-list 'load-path "~/src/ecb-2.40")
-;; (require 'ecb)
-
-;; IDO
-;;(require 'ido)
-;;(ido-mode t)
-;;(setq ido-enable-flex-matching t) ;; enable fuzzy matching
+;; Wrangler
+(add-to-list 'load-path "/usr/local/share/wrangler/elisp")
+(require 'wrangler)
 
 ; Install mode-compile to give friendlier compiling support!
 (add-to-list 'load-path "~/elisp")
@@ -76,13 +66,25 @@
 (global-set-key (kbd "C-c k") 'mode-compile-kill)
 
 ;; This is needed for Distel setup
-;; (let ((distel-dir "/Users/steve/src/distel-read-only/elisp"))
-;;   (unless (member distel-dir load-path)
-;;     ;; Add distel-dir to the end of load-path
-;;     (setq load-path (append load-path (list distel-dir)))))
-;; 
-;; (require 'distel)
-;; (distel-setup)
+(add-to-list 'load-path "/Users/steve/src/distel/elisp")
+(require 'distel)
+(distel-setup)
+
+;; prevent annoying hang-on-compile
+(defvar inferior-erlang-prompt-timeout t)
+
+;; default node name to emacs@localhost
+(setq inferior-erlang-machine-options '("-sname" "emacs"))
+
+;; tell distel to default to that node
+(setq erl-nodename-cache
+      (make-symbol
+       (concat
+        "emacs@"
+        ;; Mac OS X uses "name.local" instead of "name", this should work
+        ;; pretty much anywhere without having to muck with NetInfo
+        ;; ... but I only tested it on Mac OS X.
+        (car (split-string (shell-command-to-string "hostname"))))))
 
 ;; Some Erlang customizations
 (add-hook 'erlang-mode-hook
