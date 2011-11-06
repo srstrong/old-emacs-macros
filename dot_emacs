@@ -21,6 +21,13 @@
     (add-to-list 'default-frame-alist 
                  (cons 'height (/ (- (x-display-pixel-height) 200) (frame-char-height)))))))
 
+(add-to-list 'load-path "~/src/emacs/color-theme")
+ (require 'color-theme)
+ (eval-after-load "color-theme"
+   '(progn
+      (color-theme-initialize)
+      (color-theme-solarized 'dark)))
+
 (defadvice zap-to-char (after my-zap-to-char-advice (arg char) activate)
     "Kill up to the ARG'th occurence of CHAR, and leave CHAR.
   The CHAR is replaced and the point is put before CHAR."
