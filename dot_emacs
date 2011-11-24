@@ -25,7 +25,11 @@
 (add-to-list 'load-path "~/src/emacs/color-theme")
 
 (require 'multi-term)
-(setq multi-term-program "/bin/bash")
+
+(if window-system
+    (setq multi-term-program "/bin/zsh")
+    (setq multi-term-program "/bin/bash")
+)
 
 (if window-system
     (progn
