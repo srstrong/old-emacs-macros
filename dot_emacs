@@ -26,15 +26,24 @@
 
 (require 'multi-term)
 (setq multi-term-program "/bin/zsh")
-(custom-set-variables
-     '(term-default-bg-color "#002b36")
-     '(term-default-fg-color "#839496"))
 
-(require 'color-theme)	
-(eval-after-load "color-theme"
-  '(progn
-     (color-theme-initialize)
-     (color-theme-solarized 'dark)))
+(if window-system
+    (progn
+      (custom-set-variables
+       '(term-default-bg-color "#002b36")
+       '(term-default-fg-color "#839496"))
+      )
+)
+
+(if window-system
+    (progn
+      (require 'color-theme)	
+      (eval-after-load "color-theme"
+	'(progn
+	   (color-theme-initialize)
+	   (color-theme-solarized 'dark)))
+      )
+)
 
 (defadvice zap-to-char (after my-zap-to-char-advice (arg char) activate)
   "Kill up to the ARG'th occurence of CHAR, and leave CHAR.
