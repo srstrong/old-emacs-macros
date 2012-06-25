@@ -1,3 +1,5 @@
+(tool-bar-mode -1)
+
 (defun set-frame-size-according-to-resolution ()
   (interactive)
   (if window-system
