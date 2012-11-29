@@ -442,14 +442,10 @@ Please see the function `tempo-define-template'.")
     "-define(SERVER, ?MODULE). " n n
 
     "-record(state, {})." n
-    "-type state() ::#state{}. " n n
 
     (erlang-skel-double-separator-start 3)
     "%%% API" n
     (erlang-skel-double-separator-end 3) n
-    (erlang-skel-separator-start 2)
-    "%% Starts the server" n
-    (erlang-skel-separator-end 2)
     "start_link() ->" n>
     "gen_server:start_link({local, ?SERVER}, ?MODULE, [], [])." n
     n
@@ -457,39 +453,21 @@ Please see the function `tempo-define-template'.")
     "%%% gen_server callbacks" n
     (erlang-skel-double-separator-end 3)
     n
-    (erlang-skel-separator-start 2)
-    "%% Initializes the server" n
-    (erlang-skel-separator-end 2)
     "init([]) ->" n>
     "{ok, #state{}}." n
     n
-    (erlang-skel-separator-start 2)
-    "%% Handling call messages" n
-    (erlang-skel-separator-end 2)
     "handle_call(not_implemented, _From, State) ->" n>
     "{reply, ok, State}." n
     n
-    (erlang-skel-separator-start 2)
-    "%% Handling cast messages" n
-    (erlang-skel-separator-end 2)
     "handle_cast(not_implemented, State) ->" n>
     "{noreply, State}." n
     n
-    (erlang-skel-separator-start 2)
-    "%% Handling all non call/cast messages" n
-    (erlang-skel-separator-end 2)
     "handle_info(not_implemented, State) ->" n>
     "{noreply, State}." n
     n
-    (erlang-skel-separator-start 2)
-    "%% terminate "n
-    (erlang-skel-separator-end 2)
     "terminate(_Reason, _State) ->" n>
     "ok." n
     n
-    (erlang-skel-separator-start 2)
-    "%% Convert process state when code is changed" n
-    (erlang-skel-separator-end 2)
     "code_change(_OldVsn, State, _Extra) ->" n>
     "{ok, State}." n
     n
@@ -502,8 +480,6 @@ Please see the function `tempo-define-template'.")
     (erlang-skel-double-separator-end 3)
     "-ifdef(TEST)." n
     "-include_lib(\"eunit/include/eunit.hrl\")." n
-    "-include(\"shared/include/test.hrl\")." n
-    "-include(\"shared/include/test_helper.hrl\")." n
     n
     "-compile(export_all)." n
     "-endif."n
@@ -672,8 +648,6 @@ Please see the function `tempo-define-template'.")
     (erlang-skel-double-separator-end 3)
     "-ifdef(TEST)." n
     "-include_lib(\"eunit/include/eunit.hrl\")." n
-    "-include(\"shared/include/test.hrl\")." n
-    "-include(\"shared/include/test_helper.hrl\")." n
     n
     "-compile(export_all)." n
     "-endif."n

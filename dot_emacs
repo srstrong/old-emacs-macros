@@ -1,5 +1,9 @@
 (tool-bar-mode -1)
 
+(show-paren-mode 1)
+
+(setq confirm-nonexistent-file-or-buffer 1)
+
 (defun set-frame-size-according-to-resolution ()
   (interactive)
   (if window-system
@@ -12,16 +16,16 @@
       (add-to-list 'default-frame-alist (cons 'width 80)))
 
     (if (> (x-display-pixel-width) 1280)
-        (add-to-list 'default-frame-alist (cons 'left 200))
+        (add-to-list 'default-frame-alist (cons 'left 500))
       (add-to-list 'default-frame-alist (cons 'left 100)))
 
-    (add-to-list 'default-frame-alist (cons 'top 100))
+    (add-to-list 'default-frame-alist (cons 'top 50))
     ;; for the height, subtract a couple hundred pixels
     ;; from the screen height (for panels, menubars and
     ;; whatnot), then divide by the height of a char to
     ;; get the height we want
     (add-to-list 'default-frame-alist 
-                 (cons 'height (/ (- (x-display-pixel-height) 200) (frame-char-height)))))))
+                 (cons 'height (/ (- (x-display-pixel-height) 250) (frame-char-height)))))))
 
 (add-to-list 'load-path "~/src/emacs")
 (add-to-list 'load-path "~/src/emacs/color-theme")
@@ -47,7 +51,11 @@
       (eval-after-load "color-theme"
 	'(progn
 	   (color-theme-initialize)
-	   (color-theme-solarized 'dark)))
+	   ;; (color-theme-solarized 'light)
+	   ;; (color-theme-jsc-light2)
+	   (color-theme-emacs-21)
+	   )
+	)
       )
 )
 
@@ -66,21 +74,21 @@
  ;; If there is more than one, they won't work right.
  '(ecb-options-version "2.40")
  '(initial-buffer-choice t)
- ;; '(ns-command-modifier (quote meta))
- ;; '(ns-control-modifier (quote control))
- '(safe-local-variable-values (quote ((erlang-indent-level . 4)))))
+ '(safe-local-variable-values (quote ((allout-layout . t) (erlang-indent-level . 4))))
+ '(term-default-bg-color "#002b36")
+ '(term-default-fg-color "#839496"))
 (custom-set-faces
  ;; custom-set-faces was added by Custom.
  ;; If you edit it by hand, you could mess it up, so be careful.
  ;; Your init file should contain only one such instance.
  ;; If there is more than one, they won't work right.
- )
+ '(default ((t (:inherit nil :stipple nil :background "white" :foreground "black" :inverse-video nil :box nil :strike-through nil :overline nil :underline nil :slant normal :weight normal :height 130 :width normal :foundry "apple" :family "Source_Code_Pro")))))
 
 ;; Erlang
 (setq load-path (cons  "~/src/emacs/erlang"
 		       load-path))
-(setq erlang-root-dir "~/erlang/lib/erlang")
-(setq exec-path (cons "~/erlang/lib/erlang/bin" exec-path))
+(setq erlang-root-dir "/usr/local/lib/erlang")
+(setq exec-path (cons "/usr/local/lib/erlang/bin" exec-path))
 (require 'erlang-start)
 
 
@@ -178,3 +186,29 @@
 
 ;; Flash
 (add-to-list 'auto-mode-alist '("\\.as\\'" . js-mode))
+
+
+(add-to-list 'load-path "~/src/edts")
+  (require 'edts-start)
+
+(edts-man-set-root "~/src/erlang-man/man")
+
+(setq edts-projects
+      '(( ;; My basic project
+         (root       . "~/src/simple_stuff"))
+;;	( ;; id3as_media
+;;	 (root       . "~/Projects/Arqiva/deps/id3as_media")
+;;	 )
+        ( ;; Arqiva
+         (name       . "arqiva")
+         (root       . "~/Projects/Arqiva")
+	 (lib-dirs   . ("deps" "apps"))
+         (node-sname . "arqiva")
+        ;; (start-command . "./run.sh")
+  	)
+        ( ;; My other project.
+         (name       . "other_stuff")
+         (root       . "~/src/other_stuff")
+         (node-sname . "not_as_awesome")
+         (lib-dirs   . ("lib" "test"))))
+	 )
