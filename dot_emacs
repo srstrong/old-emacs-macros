@@ -29,8 +29,15 @@
 
 (add-to-list 'load-path "~/src/emacs")
 (add-to-list 'load-path "~/src/emacs/color-theme")
+(add-to-list 'load-path "~/src/emacs/expand-region.el")
 
+(require 'handlebars-mode)
 (require 'multi-term)
+(require 'ace-jump-mode)
+(define-key global-map (kbd "C-c SPC") 'ace-jump-mode)
+
+(require 'expand-region)
+(global-set-key (kbd "C-=") 'er/expand-region)
 
 (if window-system
     (setq multi-term-program "/bin/zsh")
@@ -187,28 +194,56 @@
 ;; Flash
 (add-to-list 'auto-mode-alist '("\\.as\\'" . js-mode))
 
+(when (require 'browse-kill-ring nil 'noerror)
+      (browse-kill-ring-default-keybindings))
 
 (add-to-list 'load-path "~/src/edts")
-  (require 'edts-start)
+(require 'edts-start)
 
 (edts-man-set-root "~/src/erlang-man/man")
 
-(setq edts-projects
-      '(( ;; My basic project
-         (root       . "~/src/simple_stuff"))
-;;	( ;; id3as_media
-;;	 (root       . "~/Projects/Arqiva/deps/id3as_media")
-;;	 )
-        ( ;; Arqiva
-         (name       . "arqiva")
-         (root       . "~/Projects/Arqiva")
-	 (lib-dirs   . ("deps" "apps"))
-         (node-sname . "arqiva")
-        ;; (start-command . "./run.sh")
-  	)
-        ( ;; My other project.
-         (name       . "other_stuff")
-         (root       . "~/src/other_stuff")
-         (node-sname . "not_as_awesome")
-         (lib-dirs   . ("lib" "test"))))
+(setq edts-projects 
+      '(
+	( ;; id3as_media (in Arqiva)
+	 (root       . "~/Projects/Arqiva/deps/id3as_media")
+	 (lib-dirs   . ("../../deps"))
+	 (node-sname . "arqiva_id3as_media")
 	 )
+	( ;; Arqiva
+	 (name       . "arqiva")
+	 (root       . "~/Projects/Arqiva")
+	 (lib-dirs   . ("deps" "apps"))
+	 )
+
+	( ;; id3as_media (in VEE)
+	 (root       . "~/Projects/VEE/deps/id3as_media")
+	 (lib-dirs   . ("../../deps"))
+	 (node-sname . "vee_id3as_media")
+	 )
+	( ;; VEE
+	 (name       . "vee")
+	 (root       . "~/Projects/VEE")
+	 (lib-dirs   . ("deps" "apps"))
+	 )
+
+	( ;; Calendapp
+	 (name       . "calendapp")
+	 (root       . "~/Projects/Calendapp")
+	 (lib-dirs   . ("deps" "apps"))
+	 )
+
+	( ;; id3as_media (in AEE)
+	 (root       . "~/Projects/Reuters-Call-Capture/deps/id3as_media")
+	 (lib-dirs   . ("../../deps"))
+	 (node-sname . "aee_id3as_media")
+	 )
+;;	( ;; AEE VCI Audio Backup
+;;	 (root       . "~/Projects/Reuters-Call-Capture/apps/vci_audio_backup")
+;;	 (node-sname . "vci_audio_backup_emacs")
+;;	 (lib-dirs   . ("../../deps" "../../apps"))
+;;	 )
+	( ;; AEE
+	 (root       . "~/Projects/Reuters-Call-Capture")
+	 (lib-dirs   . ("deps" "apps"))
+	 )
+	))
