@@ -202,48 +202,48 @@
 
 (edts-man-set-root "~/src/erlang-man/man")
 
-(setq edts-projects 
-      '(
-	( ;; id3as_media (in Arqiva)
-	 (root       . "~/Projects/Arqiva/deps/id3as_media")
-	 (lib-dirs   . ("../../deps"))
-	 (node-sname . "arqiva_id3as_media")
-	 )
-	( ;; Arqiva
-	 (name       . "arqiva")
-	 (root       . "~/Projects/Arqiva")
-	 (lib-dirs   . ("deps" "apps"))
-	 )
-
-	( ;; id3as_media (in VEE)
-	 (root       . "~/Projects/VEE/deps/id3as_media")
-	 (lib-dirs   . ("../../deps"))
-	 (node-sname . "vee_id3as_media")
-	 )
-	( ;; VEE
-	 (name       . "vee")
-	 (root       . "~/Projects/VEE")
-	 (lib-dirs   . ("deps" "apps"))
-	 )
-
-	( ;; Calendapp
-	 (name       . "calendapp")
-	 (root       . "~/Projects/Calendapp")
-	 (lib-dirs   . ("deps" "apps"))
-	 )
-
-	( ;; id3as_media (in AEE)
-	 (root       . "~/Projects/Reuters-Call-Capture/deps/id3as_media")
-	 (lib-dirs   . ("../../deps"))
-	 (node-sname . "aee_id3as_media")
-	 )
-;;	( ;; AEE VCI Audio Backup
-;;	 (root       . "~/Projects/Reuters-Call-Capture/apps/vci_audio_backup")
-;;	 (node-sname . "vci_audio_backup_emacs")
-;;	 (lib-dirs   . ("../../deps" "../../apps"))
+;;(setq edts-projects 
+;;      '(
+;;	( ;; id3as_media (in Arqiva)
+;;	 (root       . "~/Projects/Arqiva/deps/id3as_media")
+;;	 (lib-dirs   . ("../../deps"))
+;;	 (node-sname . "arqiva_id3as_media")
 ;;	 )
-	( ;; AEE
-	 (root       . "~/Projects/Reuters-Call-Capture")
-	 (lib-dirs   . ("deps" "apps"))
-	 )
-	))
+;;	( ;; Arqiva
+;;	 (name       . "arqiva")
+;;	 (root       . "~/Projects/Arqiva")
+;;	 (lib-dirs   . ("deps" "apps"))
+;;	 )
+;;
+;;	( ;; id3as_media (in VEE)
+;;	 (root       . "~/Projects/VEE/deps/id3as_media")
+;;	 (lib-dirs   . ("../../deps"))
+;;	 (node-sname . "vee_id3as_media")
+;;	 )
+;;	( ;; VEE
+;;	 (name       . "vee")
+;;	 (root       . "~/Projects/VEE")
+;;	 (lib-dirs   . ("deps" "apps"))
+;;	 )
+;;
+;;	( ;; Calendapp
+;;	 (name       . "calendapp")
+;;	 (root       . "~/Projects/Calendapp")
+;;	 (lib-dirs   . ("deps" "apps"))
+;;	 )
+;;
+;;	( ;; id3as_media (in AEE)
+;;	 (root       . "~/Projects/Reuters-Call-Capture/deps/id3as_media")
+;;	 (lib-dirs   . ("../../deps"))
+;;	 (node-sname . "aee_id3as_media")
+;;	 )
+;;;;	( ;; AEE VCI Audio Backup
+;;;;	 (root       . "~/Projects/Reuters-Call-Capture/apps/vci_audio_backup")
+;;;;	 (node-sname . "vci_audio_backup_emacs")
+;;;;	 (lib-dirs   . ("../../deps" "../../apps"))
+;;;;	 )
+;;	( ;; AEE
+;;	 (root       . "~/Projects/Reuters-Call-Capture")
+;;	 (lib-dirs   . ("deps" "apps"))
+;;	 )
+;;	))
