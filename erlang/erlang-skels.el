@@ -194,22 +194,22 @@ Look in the module `time-stamp' for a battery of functions.")
 
 (defvar erlang-skel-copyright-comment
   (if (boundp '*copyright-organization*)
-      '(& "%%% @copyright (C) " (format-time-string "%Y") ", "
+      '(& "%% @copyright (C) " (format-time-string "%Y") ", "
           *copyright-organization*  n)
-      '(& "%%% @copyright (C) " (format-time-string "%Y") ", "
+      '(& "%% @copyright (C) " (format-time-string "%Y") ", "
           (user-full-name)  n))
   "*The template for a copyright line in the header, normally empty.
 This variable should be bound to a `tempo' template, for example:
-  '(& \"%%% Copyright (C) 2000, Yoyodyne, Inc.\" n)
+  '(& \"%% Copyright (C) 2000, Yoyodyne, Inc.\" n)
 Please see the function `tempo-define-template'.")
 
 (defvar erlang-skel-created-comment
-  '(& "%%% Created : " (funcall erlang-skel-date-function) " by "
+  '(& "%% Created : " (funcall erlang-skel-date-function) " by "
       (user-full-name) " <" erlang-skel-mail-address ">" n)
   "*The template for the \"Created:\" comment line.")
 
 (defvar erlang-skel-author-comment
-  '(& "%%% @author " (user-full-name) " <" erlang-skel-mail-address ">" n)
+  '(& "%% @author " (user-full-name) " <" erlang-skel-mail-address ">" n)
   "*The template for creating the \"Author:\" line in the header.
 Please see the function `tempo-define-template'.")
 
@@ -223,9 +223,9 @@ Please see the function `tempo-define-template'.")
 (defvar erlang-skel-normal-header
   '(o (erlang-skel-include  erlang-skel-author-comment)
       (erlang-skel-include erlang-skel-copyright-comment)
-      "%%% @doc"  n
-      "%%%" p n
-      "%%% @end" n
+      "%% @doc"  n
+      "%%" p n
+      "%% @end" n
       (erlang-skel-include erlang-skel-created-comment) n
       (erlang-skel-include erlang-skel-small-header) n)
   "*The template of a normal header.
@@ -265,9 +265,9 @@ Please see the function `tempo-define-template'.")
     "-behaviour(application)." n n
     "%% Application callbacks" n
     "-export([start/2, stop/1])." n n
-    (erlang-skel-double-separator-start 3)
-    "%%% Application callbacks" n
-    (erlang-skel-double-separator-end 3) n
+    (erlang-skel-double-separator-start 2)
+    "%% Application callbacks" n
+    (erlang-skel-double-separator-end 2) n
     (erlang-skel-separator-start 2)
     "%% @private" n
     "%% @doc" n
@@ -303,9 +303,9 @@ Please see the function `tempo-define-template'.")
     "stop(_State) ->" n>
     "ok." n
     n
-    (erlang-skel-double-separator-start 3)
-    "%%% Internal functions" n
-    (erlang-skel-double-separator-end 3)
+    (erlang-skel-double-separator-start 2)
+    "%% Internal functions" n
+    (erlang-skel-double-separator-end 2)
     )
   "*The template of an application behaviour.
 Please see the function `tempo-define-template'.")
@@ -315,24 +315,26 @@ Please see the function `tempo-define-template'.")
     "-behaviour(supervisor)." n n
 
     "%% API" n
-    "-export([start_link/0])." n n
+    "-export([" n>
+    "start_link/0" n>
+    "])." n> n
 
     "%% Supervisor callbacks" n
     "-export([init/1])." n n
 
     "-define(SERVER, ?MODULE)." n n
 
-    (erlang-skel-double-separator-start 3)
-    "%%% API functions" n
-    (erlang-skel-double-separator-end 3) n
+    (erlang-skel-double-separator-start 2)
+    "%% API functions" n
+    (erlang-skel-double-separator-end 2) n
     (erlang-skel-separator-start 2)
     "%% Starts the supervisor" n
     (erlang-skel-separator-end 2)
     "supervisor:start_link({local, ?SERVER}, ?MODULE, [])." n
     n
-    (erlang-skel-double-separator-start 3)
-    "%%% Supervisor callbacks" n
-    (erlang-skel-double-separator-end 3) n
+    (erlang-skel-double-separator-start 2)
+    "%% Supervisor callbacks" n
+    (erlang-skel-double-separator-end 2) n
     (erlang-skel-separator-start 2)
     "%% Init" n
     (erlang-skel-separator-end 2)
@@ -352,9 +354,9 @@ Please see the function `tempo-define-template'.")
     "" n>
     "{ok, {SupFlags, [AChild]}}." n
     n
-    (erlang-skel-double-separator-start 3)
-    "%%% Internal functions" n
-    (erlang-skel-double-separator-end 3)
+    (erlang-skel-double-separator-start 2)
+    "%% Internal functions" n
+    (erlang-skel-double-separator-end 2)
     )
   "*The template of an supervisor behaviour.
 Please see the function `tempo-define-template'.")
@@ -364,7 +366,9 @@ Please see the function `tempo-define-template'.")
     "-behaviour(supervisor_bridge)." n n
 
     "%% API" n
-    "-export([start_link/0])." n n
+    "-export([" n>
+    "start_link/0" n>
+    "])." n> n
 
     "%% supervisor_bridge callbacks" n
     "-export([init/1, terminate/2])." n n
@@ -373,9 +377,9 @@ Please see the function `tempo-define-template'.")
 
     "-record(state, {})." n n
 
-    (erlang-skel-double-separator-start 3)
-    "%%% API" n
-    (erlang-skel-double-separator-end 3) n
+    (erlang-skel-double-separator-start 2)
+    "%% API" n
+    (erlang-skel-double-separator-end 2) n
     (erlang-skel-separator-start 2)
     "%% @doc" n
     "%% Starts the supervisor bridge" n
@@ -385,9 +389,9 @@ Please see the function `tempo-define-template'.")
     "start_link() ->" n>
     "supervisor_bridge:start_link({local, ?SERVER}, ?MODULE, [])." n
     n
-    (erlang-skel-double-separator-start 3)
-    "%%% supervisor_bridge callbacks" n
-    (erlang-skel-double-separator-end 3) n
+    (erlang-skel-double-separator-start 2)
+    "%% supervisor_bridge callbacks" n
+    (erlang-skel-double-separator-end 2) n
     (erlang-skel-separator-start 2)
     "%% @private" n
     "%% @doc" n
@@ -422,9 +426,9 @@ Please see the function `tempo-define-template'.")
     "'AModule':stop()," n>
     "ok." n
     n
-    (erlang-skel-double-separator-start 3)
-    "%%% Internal functions" n
-    (erlang-skel-double-separator-end 3)
+    (erlang-skel-double-separator-start 2)
+    "%% Internal functions" n
+    (erlang-skel-double-separator-end 2)
     )
   "*The template of an supervisor_bridge behaviour.
 Please see the function `tempo-define-template'.")
@@ -434,7 +438,9 @@ Please see the function `tempo-define-template'.")
     "-behaviour(gen_server)." n n
 
     "%% API" n
-    "-export([start_link/0])." n n
+    "-export([" n>
+    "start_link/0" n>
+    "])." n> n
 
     "%% gen_server callbacks" n
     "-export([init/1, handle_call/3, handle_cast/2, handle_info/2, terminate/2, code_change/3])." n n
@@ -443,15 +449,15 @@ Please see the function `tempo-define-template'.")
 
     "-record(state, {})." n
 
-    (erlang-skel-double-separator-start 3)
-    "%%% API" n
-    (erlang-skel-double-separator-end 3) n
+    (erlang-skel-double-separator-start 2)
+    "%% API" n
+    (erlang-skel-double-separator-end 2) n
     "start_link() ->" n>
     "gen_server:start_link({local, ?SERVER}, ?MODULE, [], [])." n
     n
-    (erlang-skel-double-separator-start 3)
-    "%%% gen_server callbacks" n
-    (erlang-skel-double-separator-end 3)
+    (erlang-skel-double-separator-start 2)
+    "%% gen_server callbacks" n
+    (erlang-skel-double-separator-end 2)
     n
     "init([]) ->" n>
     "{ok, #state{}}." n
@@ -471,13 +477,13 @@ Please see the function `tempo-define-template'.")
     "code_change(_OldVsn, State, _Extra) ->" n>
     "{ok, State}." n
     n
-    (erlang-skel-double-separator-start 3)
-    "%%% Internal functions" n
-    (erlang-skel-double-separator-end 3)
+    (erlang-skel-double-separator-start 2)
+    "%% Internal functions" n
+    (erlang-skel-double-separator-end 2)
     n n
-    (erlang-skel-double-separator-start 3)
-    "%%% Tests" n
-    (erlang-skel-double-separator-end 3)
+    (erlang-skel-double-separator-start 2)
+    "%% Tests" n
+    (erlang-skel-double-separator-end 2)
     "-ifdef(TEST)." n
     "-include_lib(\"eunit/include/eunit.hrl\")." n
     n
@@ -492,7 +498,10 @@ Please see the function `tempo-define-template'.")
     "-behaviour(gen_event)." n n
 
     "%% API" n
-    "-export([start_link/0, add_handler/0])." n n
+    "-export([" n>
+    "start_link/0," n>
+    "add_handler/0"
+    "])." n> n
 
     "%% gen_event callbacks" n
     "-export([init/1, handle_event/2, handle_call/2, handle_info/2, terminate/2, code_change/3])." n n
@@ -502,9 +511,9 @@ Please see the function `tempo-define-template'.")
     "-record(state, {})." n
     "-type state() ::#state{}." n n
 
-    (erlang-skel-double-separator-start 3)
-    "%%% gen_event callbacks" n
-    (erlang-skel-double-separator-end 3) n
+    (erlang-skel-double-separator-start 2)
+    "%% gen_event callbacks" n
+    (erlang-skel-double-separator-end 2) n
     (erlang-skel-separator-start 2)
     "%% Creates an event manager" n
     (erlang-skel-separator-end 2)
@@ -517,9 +526,9 @@ Please see the function `tempo-define-template'.")
     "add_handler() ->" n>
     "gen_event:add_handler(?SERVER, ?MODULE, [])." n
     n
-    (erlang-skel-double-separator-start 3)
-    "%%% gen_event callbacks" n
-    (erlang-skel-double-separator-end 3) n
+    (erlang-skel-double-separator-start 2)
+    "%% gen_event callbacks" n
+    (erlang-skel-double-separator-end 2) n
     (erlang-skel-separator-start 2)
     "%% init" n
     (erlang-skel-separator-end 2)
@@ -557,9 +566,9 @@ Please see the function `tempo-define-template'.")
     "code_change(_OldVsn, State, _Extra) ->" n>
     "{ok, State}." n
     n
-    (erlang-skel-double-separator-start 3)
-    "%%% Internal functions" n
-    (erlang-skel-double-separator-end 3)
+    (erlang-skel-double-separator-start 2)
+    "%% Internal functions" n
+    (erlang-skel-double-separator-end 2)
     )
   "*The template of a gen_event.
 Please see the function `tempo-define-template'.")
@@ -569,7 +578,9 @@ Please see the function `tempo-define-template'.")
     "-behaviour(gen_fsm)." n n
 
     "%% API" n
-    "-export([start_link/0])." n n
+    "-export([" n>
+    "start_link/0" n>
+    "])." n> n
 
     "%% gen_fsm callbacks" n
     "-export([init/1, state_name/2, state_name/3, handle_event/3, handle_sync_event/4, handle_info/3, terminate/3, code_change/4])." n n
@@ -579,18 +590,18 @@ Please see the function `tempo-define-template'.")
     "-record(state, {})." n
     "-type state() ::#state{}." n n
 
-    (erlang-skel-double-separator-start 3)
-    "%%% API" n
-    (erlang-skel-double-separator-end 3) n
+    (erlang-skel-double-separator-start 2)
+    "%% API" n
+    (erlang-skel-double-separator-end 2) n
     (erlang-skel-separator-start 2)
     "%% init" n
     (erlang-skel-separator-end 2)
     "start_link() ->" n>
     "gen_fsm:start_link({local, ?SERVER}, ?MODULE, [], [])." n
     n
-    (erlang-skel-double-separator-start 3)
-    "%%% gen_fsm callbacks" n
-    (erlang-skel-double-separator-end 3) n
+    (erlang-skel-double-separator-start 2)
+    "%% gen_fsm callbacks" n
+    (erlang-skel-double-separator-end 2) n
     (erlang-skel-separator-start 2)
     "%% init" n
     (erlang-skel-separator-end 2)
@@ -639,13 +650,13 @@ Please see the function `tempo-define-template'.")
     "code_change(_OldVsn, StateName, State, _Extra) ->" n>
     "{ok, StateName, State}." n
     n
-    (erlang-skel-double-separator-start 3)
-    "%%% Internal functions" n
-    (erlang-skel-double-separator-end 3)
+    (erlang-skel-double-separator-start 2)
+    "%% Internal functions" n
+    (erlang-skel-double-separator-end 2)
     n n
-    (erlang-skel-double-separator-start 3)
-    "%%% Tests" n
-    (erlang-skel-double-separator-end 3)
+    (erlang-skel-double-separator-start 2)
+    "%% Tests" n
+    (erlang-skel-double-separator-end 2)
     "-ifdef(TEST)." n
     "-include_lib(\"eunit/include/eunit.hrl\")." n
     n
@@ -659,19 +670,20 @@ Please see the function `tempo-define-template'.")
   '((erlang-skel-include erlang-skel-large-header)
 
     "%% API" n
-    "-export([])." n n
+    "-export([" n>
+    "])." n> n
 
-    (erlang-skel-double-separator-start 3)
-    "%%% API" n
-    (erlang-skel-double-separator-end 3) n
+    (erlang-skel-double-separator-start 2)
+    "%% API" n
+    (erlang-skel-double-separator-end 2) n
     (erlang-skel-separator-start 2)
     "%% @doc" n
     "%% @spec" n
     (erlang-skel-separator-end 2)
     n
-    (erlang-skel-double-separator-start 3)
-    "%%% Internal functions" n
-    (erlang-skel-double-separator-end 3)
+    (erlang-skel-double-separator-start 2)
+    "%% Internal functions" n
+    (erlang-skel-double-separator-end 2)
     )
   "*The template of a library module.
 Please see the function `tempo-define-template'.")
@@ -681,16 +693,17 @@ Please see the function `tempo-define-template'.")
     "%% Include files" n n
 
     "%% API" n
-    "-export([])." n n
+    "-export([" n>
+    "])." n> n
 
     "%% Corba callbacks" n
     "-export([init/1, terminate/2, code_change/3])." n n
 
     "-record(state, {})." n n
 
-    (erlang-skel-double-separator-start 3)
-    "%%% Corba callbacks" n
-    (erlang-skel-double-separator-end 3) n
+    (erlang-skel-double-separator-start 2)
+    "%% Corba callbacks" n
+    (erlang-skel-double-separator-end 2) n
     (erlang-skel-separator-start 2)
     "%% @private" n
     "%% @doc" n
@@ -724,9 +737,9 @@ Please see the function `tempo-define-template'.")
     "code_change(_OldVsn, State, _Extra) ->" n>
     "{ok, State}." n
     n
-    (erlang-skel-double-separator-start 3)
-    "%%% Internal functions" n
-    (erlang-skel-double-separator-end 3)
+    (erlang-skel-double-separator-start 2)
+    "%% Internal functions" n
+    (erlang-skel-double-separator-end 2)
     )
   "*The template of a library module.
 Please see the function `tempo-define-template'.")
@@ -1284,7 +1297,7 @@ package not be present, this function does nothing."
 
 Example of use, assuming that `erlang-skel-func' is defined:
 
- (defvar foo-skeleton '(\"%%% New function:\"
+ (defvar foo-skeleton '(\"%% New function:\"
                         (erlang-skel-include erlang-skel-func)))
 
 Technically, this function returns the `tempo' attribute`(l ...)' which
@@ -1302,7 +1315,7 @@ can contain other `tempo' attributes.  Please see the function
 
 (defun erlang-skel-separator (&optional percent)
   "Return a comment separator."
-  (let ((percent (or percent 3)))
+  (let ((percent (or percent 2)))
     (concat (make-string percent ?%)
             (make-string (- 70 percent) ?-)
             "\n")))
@@ -1323,9 +1336,9 @@ empty string if separators are configured off."
 
 (defun erlang-skel-double-separator (&optional percent)
   "Return a double line (equals sign) comment separator."
-  (let ((percent (or percent 3)))
+  (let ((percent (or percent 2)))
     (concat (make-string percent ?%)
-            (make-string (- 70 percent) ?=)
+            (make-string (- 70 percent) ?-)
             "\n")))
 
 (defun erlang-skel-double-separator-start (&optional percent)
